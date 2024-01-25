@@ -14,5 +14,9 @@ docker run -it --rm --name postgres-client \
 ```
 ```
 psql --host=172.17.0.1 --port=54321 --user=postgres \
-  "sslmode=verify-ca sslrootcert=./ssl/root.crt sslcert=./ssl/postgresql.crt sslkey=./ssl/postgresql.key"
+  "password=postgres \
+  sslmode=verify-ca \
+  sslrootcert=./ssl/root.crt \
+  sslcert=./ssl/postgresql.crt \
+  sslkey=./ssl/postgresql.key"
 ```
