@@ -1,3 +1,4 @@
+(
 mkdir -p ./ssl
 cd ./ssl
 
@@ -34,3 +35,4 @@ openssl x509 -req -CA root.crt \
 
 sudo chown 999 server.key
 sudo chmod 600 server.key
+)
