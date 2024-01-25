@@ -1,10 +1,12 @@
 # postgres-mtls
-1 - [mtls.txt](/mtls.txt)
+```
+sudo sh mtls.txt
+```
 ```
 docker-compose build
 ```
 ```
-docker-compose up -d
+docker-compose up -d; docker-compose logs -f
 ```
 ```
 docker run -it --rm --name postgres-client \
