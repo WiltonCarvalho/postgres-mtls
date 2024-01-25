@@ -1,0 +1,36 @@
+mkdir -p ./ssl
+cd ./ssl
+
+openssl genrsa -out root.key 2048
+
+openssl req -x509 -new -nodes -key root.key -days 36500 \
+  -out root.crt -sha256 -subj '/O=test/CN=test ca'
+
+openssl genrsa -out server.key 2048
+
+openssl req -new -key server.key -out server.csr \
+  -subj '/O=test/CN=db.test.com'
+
+echo "extendedKeyUsage = serverAuth" > server_cert.txt
+
+echo "subjectAltName=IP:127.0.0.1,IP:172.17.0.1,DNS:db.test.com" >> server_cert.txt
+
+openssl x509 -req -CA root.crt \
+  -CAkey root.key -CAcreateserial -days 36500 \
+  -in server.csr -out server.crt -sha256 -extfile server_cert.txt
+
+openssl verify -CAfile root.crt server.crt
+
+echo "extendedKeyUsage = clientAuth" > client_cert.txt
+
+openssl genrsa -out postgresql.key 2048
+
+openssl req -new -key postgresql.key -out postgresql.csr \
+  -subj '/O=test/CN=postgres'
+
+openssl x509 -req -CA root.crt \
+  -CAkey root.key -CAcreateserial -days 36500 \
+  -in postgresql.csr -out postgresql.crt -sha256 -extfile client_cert.txt
+
+sudo chown 999 server.key
+sudo chmod 600 server.key
