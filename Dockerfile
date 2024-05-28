@@ -1,5 +1,2 @@
-FROM postgres:16
-RUN apt-get update \
-  && apt-get install --no-install-recommends \
-    postgresql-16-pgvector \
-  && rm -rf /var/lib/apt/lists/*
+FROM postgres:16-alpine
+RUN apk add --no-cache postgresql-pgvector

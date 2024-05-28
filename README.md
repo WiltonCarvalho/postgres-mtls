@@ -20,3 +20,11 @@ psql --host=172.17.0.1 --port=54321 --user=postgres \
   sslcert=./ssl/postgresql.crt \
   sslkey=./ssl/postgresql.key"
 ```
+```
+\?
+\l
+\conninfo
+\c test
+SELECT * FROM table;
+\q
+```
