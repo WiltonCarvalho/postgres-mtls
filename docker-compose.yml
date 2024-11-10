@@ -15,7 +15,7 @@ services:
       POSTGRES_PASSWORD: postgres
       PGDATA: /var/lib/postgresql/data/pgdata
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -h localhost -p 5432 -d $$POSTGRES_DB -U $$POSTGRES_USER"]
+      test: ["CMD-SHELL", "psql -w -U $$POSTGRES_USER -d $$POSTGRES_DB -c 'SELECT 1'"]
       start_period: 15s
       interval: 10s
       timeout: 5s
